@@ -37,37 +37,54 @@ function countWeekendDays(startDate, endDate) {
   return count;
 }
 
+Date.prototype.subtractDays = function (days) {
+  const date = new Date(this.valueOf());
+  date.setDate(date.getDate() - days);
+  return date;
+};
+
 // MAIN FUNCTION
+// best = dueDate - transitTime - any num of weekend days
+// TODO add proper return value
+// TODO add test cases - seems to work appropriately now
+
 function findBestShipDate(cust, due) {
-  const today = new Date();
-  let shipDate = new Date();
-  const testDate = new Date("10/26/22");
-  const dueDate = new Date(due);
   const transitTime = 3;
+  const dueDate = new Date(due);
+  let bestShipDate = new Date(due);
+  let daysInTransit = 0;
+  let weekendDays = 0;
+  let dayToCheck = new Date(due);
+  let calendarDays = 0;
 
-  //   formats day-of-week index into longfrom day-of-week
-  const options = { weekday: "long" };
-  //   console.log(new Intl.DateTimeFormat("en-US", options).format(today));
+  while (daysInTransit < transitTime) {
+    dayToCheck = dueDate.subtractDays(daysInTransit + 1);
+    // console.log(
+    //   `Checking day: ${dayToCheck.getMonth() + 1}/${dayToCheck.getDate()}`
+    // );
+    if (dayToCheck.getDay() === 0 || dayToCheck.getDay() === 6) {
+      console.log(`^^ that's a weekend day`);
+      weekendDays++;
+    }
+    daysInTransit++;
+  }
 
-  const totalDaysTodayTilDue = numDaysBetweenDates(testDate, dueDate);
-  const numWeekendDays = countWeekendDays(testDate, dueDate);
-  const daysNoWeekends = totalDaysTodayTilDue - numWeekendDays;
+  calendarDays = daysInTransit + weekendDays;
+  bestShipDate = bestShipDate.subtractDays(calendarDays);
 
-  const shipInThisManyDays = totalDaysTodayTilDue - transitTime;
-  console.log(`Total days from today until due date: ` + totalDaysTodayTilDue);
+  if (bestShipDate.getDay() === 0) {
+    bestShipDate -= 2;
+  } else if (bestShipDate.getDay() === 6) {
+    bestShipDate -= 1;
+  }
+
+  console.log(`Order is due: ${dueDate.getMonth() + 1}/${dueDate.getDate()}`);
   console.log(
-    `Total number of weekend days in that time frame: ` + numWeekendDays
+    `Best day to ship: ${bestShipDate.getMonth() + 1}/${bestShipDate.getDate()}`
   );
-  console.log(
-    `Total days - weekend days: ${totalDaysTodayTilDue - numWeekendDays}`
-  );
-
-  //   shipDate.setDate(31);
-  //   console.log(`Ship Date: ${shipDate}`);
-  const message = `Customer ${cust} has a due date of ${due}\nThe best day to ship this order is in ${shipInThisManyDays} days.`;
-
-  console.log(message);
-  screen.innerText = message;
+  bestShipDate.getDay() === 0 || bestShipDate.getDay() === 6
+    ? console.log(`Looks like you are trying to ship on a weekend`)
+    : console.log(`Ship day looks good`);
 }
 
-findBestShipDate("chino", "11/1/2022");
+findBestShipDate("Chino", "10/28/2022");
