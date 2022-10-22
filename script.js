@@ -4,12 +4,17 @@
 //   availableShipDays - avgTimeInTransit
 //   where availableShipDays = dueDate - today - weekend days
 
+// FIXME not correctly calculating 'ship in x days' - need to think more mathematically about that bit
+
 // TODO correctly formatting dates to pass into all Date functions?
 // works with a string formatted "MM/DD/YYYY"
 // need to validate that all inputs passed from forms match that input
 
 // TODO how to turn # of days into an actual Date value
 // aka go from "ship in 3 days" to "ship on 10/31/22"
+
+// DOM ELEMENTS
+const screen = document.querySelector("#screen");
 
 // HELPER FUNCTIONS
 function numDaysBetweenDates(start, end) {
@@ -20,12 +25,6 @@ function numDaysBetweenDates(start, end) {
   return Math.floor((utc2 - utc1) / _MS_PER_DAY);
 }
 
-const today = new Date();
-const weekFromToday = new Date(2022, 9, 28);
-const difference = numDaysBetweenDates(today, weekFromToday);
-// console.log(difference + ` days`);
-
-// counting num of weekend days
 function countWeekendDays(startDate, endDate) {
   let count = 0;
 
@@ -41,24 +40,34 @@ function countWeekendDays(startDate, endDate) {
 // MAIN FUNCTION
 function findBestShipDate(cust, due) {
   const today = new Date();
+  let shipDate = new Date();
+  const testDate = new Date("10/26/22");
   const dueDate = new Date(due);
   const transitTime = 3;
 
-  const totalDaysTodayTilDue = numDaysBetweenDates(today, dueDate);
-  const numWeekendDays = countWeekendDays(today, dueDate);
+  //   formats day-of-week index into longfrom day-of-week
+  const options = { weekday: "long" };
+  //   console.log(new Intl.DateTimeFormat("en-US", options).format(today));
+
+  const totalDaysTodayTilDue = numDaysBetweenDates(testDate, dueDate);
+  const numWeekendDays = countWeekendDays(testDate, dueDate);
   const daysNoWeekends = totalDaysTodayTilDue - numWeekendDays;
-  //   console.log(`Total days from today until due date: ` + totalDaysTodayTilDue);
-  //   console.log(
-  //     `Total number of weekend days in that time frame: ` + numWeekendDays
-  //   );
-  //   console.log(
-  //     `Total days - weekend days: ${totalDaysTodayTilDue - numWeekendDays}`
-  //   );
+
+  const shipInThisManyDays = totalDaysTodayTilDue - transitTime;
+  console.log(`Total days from today until due date: ` + totalDaysTodayTilDue);
   console.log(
-    `Customer ${cust} has a due date of ${due}\nThe best day to ship this order is in ${
-      daysNoWeekends - transitTime
-    } days.`
+    `Total number of weekend days in that time frame: ` + numWeekendDays
   );
+  console.log(
+    `Total days - weekend days: ${totalDaysTodayTilDue - numWeekendDays}`
+  );
+
+  //   shipDate.setDate(31);
+  //   console.log(`Ship Date: ${shipDate}`);
+  const message = `Customer ${cust} has a due date of ${due}\nThe best day to ship this order is in ${shipInThisManyDays} days.`;
+
+  console.log(message);
+  screen.innerText = message;
 }
 
-findBestShipDate("chino", "10/28/2022");
+findBestShipDate("chino", "11/1/2022");
