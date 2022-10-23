@@ -9,6 +9,7 @@
 
 // DOM ELEMENTS
 const screen = document.querySelector("#screen");
+const selectConsignee = document.querySelector("#select-consignee");
 
 //
 // HELPER FUNCTIONS
