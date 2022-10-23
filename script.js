@@ -7,9 +7,16 @@
 // works with a string formatted "MM/DD/YYYY"
 // need to validate that all inputs passed from forms match that input
 
-// DOM ELEMENTS
+// DOM
 const screen = document.querySelector("#screen");
 const selectConsignee = document.querySelector("#select-consignee");
+const consignees = ["KeHE - Chino", "Wegmans", "UNFI - Dayville"];
+
+for (const consignee of consignees) {
+  let option = document.createElement("option");
+  option.innerText = consignee;
+  selectConsignee.appendChild(option);
+}
 
 //
 // HELPER FUNCTIONS
