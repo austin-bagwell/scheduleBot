@@ -8,10 +8,15 @@
 // need to validate that all inputs passed from forms match that input
 
 // FAKE DATA
-const dummyData = {
-  "KeHE - Chino": 3,
-  Wegmans: 4,
-  "UNFI - Dayville": 1,
+
+const dummyJSON = {
+  consignees: [
+    "KeHE - Chino",
+    "Wegmans",
+    "UNFI - Dayville",
+    "UNFI - Moreno Valley",
+  ],
+  avgTransitTimes: [2, 3, 1, 7],
 };
 
 // DOM
@@ -20,8 +25,8 @@ const selectConsignee = document.querySelector("#select-consignee");
 const consignees = ["KeHE - Chino", "Wegmans", "UNFI - Dayville"];
 const btnSubmit = document.querySelector("#submit");
 
-for (const consignee of consignees) {
-  let option = document.createElement("option");
+for (const consignee of dummyJSON.consignees) {
+  const option = document.createElement("option");
   option.innerText = consignee;
   option.value = consignee;
   selectConsignee.appendChild(option);
@@ -59,8 +64,9 @@ function findBestShipDate(cust, due) {
   let bestShipDate = new Date(due);
   let daysInTransit = 0;
   let weekendDays = 0;
-  let dayToCheck = new Date(due);
+
   while (daysInTransit < transitTime) {
+    let dayToCheck = new Date(due);
     dayToCheck = dueDate.subtractDays(daysInTransit + 1);
     if (dayToCheck.getDay() === 0 || dayToCheck.getDay() === 6) {
       weekendDays++;
