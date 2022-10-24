@@ -24,6 +24,8 @@ const screen = document.querySelector("#screen");
 const selectConsignee = document.querySelector("#select-consignee");
 const consignees = ["KeHE - Chino", "Wegmans", "UNFI - Dayville"];
 const btnSubmit = document.querySelector("#submit");
+// p just to test shit
+const testy = document.querySelector("#testy");
 
 for (const consignee of dummyJSON.consignees) {
   const option = document.createElement("option");
@@ -35,11 +37,23 @@ for (const consignee of dummyJSON.consignees) {
 // will need to link this to the main function at some point
 // long term, this will go on the main script while the functionality
 // that handles calculating ship date will become a module
+// FIXME not passing due date correctly - might need to reform or get a raw value
 btnSubmit.addEventListener("click", () => {
   const selection = selectConsignee.value;
-  const transitTime = dummyData[selection];
+  const transitTime =
+    dummyJSON.avgTransitTimes[dummyJSON.consignees.indexOf(selection)];
+  const dueDate = document.querySelector("#due-date").value;
+  console.log(`value of due date: ${dueDate.valueOf()}`);
   console.log(selection);
   console.log(`Transit time for this customer: ${transitTime}`);
+  if (
+    dummyJSON.consignees.includes(selection) &&
+    dueDate.valueOf() > new Date().valueOf()
+  ) {
+    testy.innerText = findBestShipDate(transitTime, dueDate);
+  } else {
+    alert("Something went wrong");
+  }
 });
 
 //
@@ -58,8 +72,8 @@ Date.prototype.subtractDays = function (days) {
 //
 //
 
-function findBestShipDate(cust, due) {
-  const transitTime = 7;
+function findBestShipDate(transit, due) {
+  const transitTime = transit;
   const dueDate = new Date(due);
   let bestShipDate = new Date(due);
   let daysInTransit = 0;
@@ -90,6 +104,9 @@ function findBestShipDate(cust, due) {
   //   bestShipDate.getDay() === 0 || bestShipDate.getDay() === 6
   //     ? console.log(`Looks like you are trying to ship on a weekend`)
   //     : console.log(`Ship day looks good`);
-}
 
-findBestShipDate("Chino", "10/28/2022");
+  const message = `Best day to ship: ${
+    bestShipDate.getMonth() + 1
+  }/${bestShipDate.getDate()}`;
+  return message;
+}
