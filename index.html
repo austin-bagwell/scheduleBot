@@ -9,14 +9,17 @@
   <body>
     <main>
       <h1>Shipper Bot</h1>
-      <p>Select a consignee and input a due date</p>
+      <div class="text-test">
+        <p>Select a consignee and input a due date</p>
+        <p id="testy"></p>
+      </div>
       <form name="best-ship-date">
         <select id="select-consignee">
           <option>Select a ship-to location</option>
         </select>
         <label for="date">Due by date: </label>
-        <input type="date" name="date" id="date" />
-        <button type="submit" for="best-ship-date">Submit</button>
+        <input type="date" name="date" id="due-date" />
+        <button type="button" for="best-ship-date" id="submit">Submit</button>
       </form>
     </main>
 
