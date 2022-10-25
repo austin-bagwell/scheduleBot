@@ -38,18 +38,16 @@ for (const consignee of dummyJSON.consignees) {
 // long term, this will go on the main script while the functionality
 // that handles calculating ship date will become a module
 // FIXME not passing due date correctly - might need to reform or get a raw value
+// looks like the dueDate is being reduced by 1 somehow?
 btnSubmit.addEventListener("click", () => {
   const selection = selectConsignee.value;
   const transitTime =
     dummyJSON.avgTransitTimes[dummyJSON.consignees.indexOf(selection)];
   const dueDate = document.querySelector("#due-date").value;
-  console.log(`value of due date: ${dueDate.valueOf()}`);
+  console.log(`Due date from event listener: ${dueDate}`);
   console.log(selection);
   console.log(`Transit time for this customer: ${transitTime}`);
-  if (
-    dummyJSON.consignees.includes(selection) &&
-    dueDate.valueOf() > new Date().valueOf()
-  ) {
+  if (dummyJSON.consignees.includes(selection)) {
     testy.innerText = findBestShipDate(transitTime, dueDate);
   } else {
     alert("Something went wrong");
