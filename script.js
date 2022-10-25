@@ -1,11 +1,4 @@
 "use strict";
-// TODO create dummy data to test the cust parameter of main function
-
-// TODO getting inputs from DOM
-
-// TODO correctly formatting dates to pass into all Date functions?
-// works with a string formatted "MM/DD/YYYY"
-// need to validate that all inputs passed from forms match that input
 
 // FAKE DATA
 
