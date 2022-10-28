@@ -1,17 +1,5 @@
 "use strict";
 
-// FAKE DATA
-
-const dummyJSON = {
-  consignees: [
-    "KeHE - Chino",
-    "Wegmans",
-    "UNFI - Dayville",
-    "UNFI - Moreno Valley",
-  ],
-  avgTransitTimes: [2, 3, 1, 7],
-};
-
 // DOM
 const screen = document.querySelector("#screen");
 const selectConsignee = document.querySelector("#select-consignee");
@@ -39,6 +27,16 @@ elDueDate.addEventListener("change", function (e) {
   }
 });
 
+// FAKE CONSIGNEE DATA
+const dummyJSON = {
+  consignees: [
+    "KeHE - Chino",
+    "Wegmans",
+    "UNFI - Dayville",
+    "UNFI - Moreno Valley",
+  ],
+  avgTransitTimes: [2, 3, 1, 7],
+};
 const testy = document.querySelector("#testy");
 
 for (const consignee of dummyJSON.consignees) {
@@ -53,16 +51,13 @@ btnSubmit.addEventListener("click", () => {
   const transitTime =
     dummyJSON.avgTransitTimes[dummyJSON.consignees.indexOf(selection)];
   const dueDate = document.querySelector("#due-date").value;
-  // console.log(`Due Date val on submit click: ${dueDate}`);
-  //   console.log(`Consignee: ${selection}`);
-  //   console.log(`Transit time for this customer: ${transitTime}`);
-  //   console.log(`Due date from event listener: ${dueDate}`);
 
-  //   add if (duedate === isWeekday())
   if (dummyJSON.consignees.includes(selection) && dueDate !== "") {
     testy.innerText = findBestShipDate(transitTime, dueDate);
   } else {
-    alert("Select a consignee from the dropdown menu and select a due date.");
+    alert(
+      "Select a consignee from the dropdown menu and select a due date on a weekday."
+    );
   }
 });
 
@@ -76,17 +71,14 @@ Date.prototype.subtractDays = function (days) {
   return date;
 };
 
-// should return and alert if due date is set to a weekend - assuming that no on will accept deliveries on a weekend, but that is pretty standard so a safe assumption for my usecase
-function isWeekday() {}
-
 //
 //
 // MAIN FUNCTION
 //
 //
 
-function findBestShipDate(transit, due) {
-  const transitTime = transit;
+function findBestShipDate(timeInTransit, due) {
+  const transitTime = timeInTransit;
   const dueDate = new Date(`${due}T00:00`);
   let bestShipDate = new Date(`${due}T00:00`);
   let daysInTransit = 0;
@@ -101,19 +93,11 @@ function findBestShipDate(transit, due) {
     daysInTransit++;
   }
 
-  //   FIXME
-  // bestShipDate getting converted to something that .getMonth() can't use after the if else block
-  //   seems to fire when original ship date would be a weekend day
-  //   Best Ship date value after ifel: 1667015999999
-  const calendarDays = daysInTransit + weekendDays;
-  bestShipDate = bestShipDate.subtractDays(calendarDays);
+  const calDaysInTransit = daysInTransit + weekendDays;
+  bestShipDate = bestShipDate.subtractDays(calDaysInTransit);
 
-  console.log(`bestShipDate prior to ifel: ${bestShipDate}`);
-  //   something is doing weird stuff here
-  if (bestShipDate.getDay() === 0) {
-    bestShipDate -= 2;
-  } else if (bestShipDate.getDay() === 6) {
-    bestShipDate -= 1;
+  if ([0, 6].includes(bestShipDate.getDay())) {
+    bestShipDate = bestShipDate.subtractDays(1);
   }
 
   console.log(`Best Ship date value after ifel: ${bestShipDate}`);
