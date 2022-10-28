@@ -1,12 +1,10 @@
 "use strict";
-
 //
 // HELPER FUNCTIONS
 //
-
 Date.prototype.subtractDays = function (days) {
   const date = new Date(this.valueOf());
-  date.setDate(date.getDate() - days);
+  date.setDate(date.getUTCDate() - days);
   return date;
 };
 
@@ -15,11 +13,10 @@ Date.prototype.subtractDays = function (days) {
 // MAIN FUNCTION
 //
 //
-
-function findBestShipDate(transit, due) {
-  const transitTime = transit;
-  const dueDate = new Date(due);
-  let bestShipDate = new Date(due);
+export function findBestShipDate(timeInTransit, due) {
+  const transitTime = timeInTransit;
+  const dueDate = new Date(`${due}T00:00`);
+  let bestShipDate = new Date(`${due}T00:00`);
   let daysInTransit = 0;
   let weekendDays = 0;
 
@@ -32,25 +29,16 @@ function findBestShipDate(transit, due) {
     daysInTransit++;
   }
 
-  const calendarDays = daysInTransit + weekendDays;
-  bestShipDate = bestShipDate.subtractDays(calendarDays);
+  const calDaysInTransit = daysInTransit + weekendDays;
+  bestShipDate = bestShipDate.subtractDays(calDaysInTransit);
 
-  if (bestShipDate.getDay() === 0) {
-    bestShipDate -= 2;
-  } else if (bestShipDate.getDay() === 6) {
-    bestShipDate -= 1;
+  if ([0, 6].includes(bestShipDate.getDay())) {
+    bestShipDate = bestShipDate.subtractDays(1);
   }
-
-  console.log(`Order is due: ${dueDate.getMonth() + 1}/${dueDate.getDate()}`);
-  console.log(
-    `Best day to ship: ${bestShipDate.getMonth() + 1}/${bestShipDate.getDate()}`
-  );
-  //   bestShipDate.getDay() === 0 || bestShipDate.getDay() === 6
-  //     ? console.log(`Looks like you are trying to ship on a weekend`)
-  //     : console.log(`Ship day looks good`);
 
   const message = `Best day to ship: ${
     bestShipDate.getMonth() + 1
   }/${bestShipDate.getDate()}`;
+
   return message;
 }
