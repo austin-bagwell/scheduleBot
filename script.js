@@ -1,9 +1,7 @@
 "use strict";
 
 // DOM
-const screen = document.querySelector("#screen");
 const selectConsignee = document.querySelector("#select-consignee");
-const consignees = ["KeHE - Chino", "Wegmans", "UNFI - Dayville"];
 const btnSubmit = document.querySelector("#submit");
 const elDueDate = document.querySelector("#due-date");
 
@@ -64,7 +62,6 @@ btnSubmit.addEventListener("click", () => {
 //
 // HELPER FUNCTIONS
 //
-
 Date.prototype.subtractDays = function (days) {
   const date = new Date(this.valueOf());
   date.setDate(date.getUTCDate() - days);
@@ -76,7 +73,6 @@ Date.prototype.subtractDays = function (days) {
 // MAIN FUNCTION
 //
 //
-
 function findBestShipDate(timeInTransit, due) {
   const transitTime = timeInTransit;
   const dueDate = new Date(`${due}T00:00`);
@@ -100,14 +96,9 @@ function findBestShipDate(timeInTransit, due) {
     bestShipDate = bestShipDate.subtractDays(1);
   }
 
-  console.log(`Best Ship date value after ifel: ${bestShipDate}`);
-  console.log(`Order is due: ${dueDate.getMonth() + 1}/${dueDate.getDate()}`);
-  console.log(
-    `Best day to ship: ${bestShipDate.getMonth() + 1}/${bestShipDate.getDate()}`
-  );
-
   const message = `Best day to ship: ${
     bestShipDate.getMonth() + 1
   }/${bestShipDate.getDate()}`;
+
   return message;
 }
