@@ -1,7 +1,33 @@
 "use strict";
 
-// FAKE DATA
+// DOM
+const screen = document.querySelector("#screen");
+const selectConsignee = document.querySelector("#select-consignee");
+const consignees = ["KeHE - Chino", "Wegmans", "UNFI - Dayville"];
+const btnSubmit = document.querySelector("#submit");
+const elDueDate = document.querySelector("#due-date");
 
+function minDateTomorrow() {
+  const today = new Date();
+  let dd = today.getDate() + 1;
+  dd.toString().padStart(2, "0");
+  let mm = today.getMonth() + 1;
+  mm = mm.toString().padStart(2, "0");
+  const yyyy = today.getFullYear().toString();
+  const date = [yyyy, mm, dd].join("-");
+  return date;
+}
+
+elDueDate.setAttribute("min", minDateTomorrow());
+elDueDate.addEventListener("change", function (e) {
+  const day = new Date(this.value).getUTCDay();
+  if ([0, 6].includes(day)) {
+    alert("Deliveries are not made on weekends. Please pick a different date.");
+    elDueDate.value = "";
+  }
+});
+
+// FAKE CONSIGNEE DATA
 const dummyJSON = {
   consignees: [
     "KeHE - Chino",
@@ -11,13 +37,6 @@ const dummyJSON = {
   ],
   avgTransitTimes: [2, 3, 1, 7],
 };
-
-// DOM
-const screen = document.querySelector("#screen");
-const selectConsignee = document.querySelector("#select-consignee");
-const consignees = ["KeHE - Chino", "Wegmans", "UNFI - Dayville"];
-const btnSubmit = document.querySelector("#submit");
-// p just to test shit
 const testy = document.querySelector("#testy");
 
 for (const consignee of dummyJSON.consignees) {
@@ -27,23 +46,18 @@ for (const consignee of dummyJSON.consignees) {
   selectConsignee.appendChild(option);
 }
 
-// will need to link this to the main function at some point
-// long term, this will go on the main script while the functionality
-// that handles calculating ship date will become a module
-// FIXME not passing due date correctly - might need to reform or get a raw value
-// looks like the dueDate is being reduced by 1 somehow?
 btnSubmit.addEventListener("click", () => {
   const selection = selectConsignee.value;
   const transitTime =
     dummyJSON.avgTransitTimes[dummyJSON.consignees.indexOf(selection)];
   const dueDate = document.querySelector("#due-date").value;
-  console.log(`Due date from event listener: ${dueDate}`);
-  console.log(selection);
-  console.log(`Transit time for this customer: ${transitTime}`);
-  if (dummyJSON.consignees.includes(selection)) {
+
+  if (dummyJSON.consignees.includes(selection) && dueDate !== "") {
     testy.innerText = findBestShipDate(transitTime, dueDate);
   } else {
-    alert("Something went wrong");
+    alert(
+      "Select a consignee from the dropdown menu and select a due date on a weekday."
+    );
   }
 });
 
@@ -53,7 +67,7 @@ btnSubmit.addEventListener("click", () => {
 
 Date.prototype.subtractDays = function (days) {
   const date = new Date(this.valueOf());
-  date.setDate(date.getDate() - days);
+  date.setDate(date.getUTCDate() - days);
   return date;
 };
 
@@ -63,10 +77,10 @@ Date.prototype.subtractDays = function (days) {
 //
 //
 
-function findBestShipDate(transit, due) {
-  const transitTime = transit;
-  const dueDate = new Date(due);
-  let bestShipDate = new Date(due);
+function findBestShipDate(timeInTransit, due) {
+  const transitTime = timeInTransit;
+  const dueDate = new Date(`${due}T00:00`);
+  let bestShipDate = new Date(`${due}T00:00`);
   let daysInTransit = 0;
   let weekendDays = 0;
 
@@ -79,22 +93,18 @@ function findBestShipDate(transit, due) {
     daysInTransit++;
   }
 
-  const calendarDays = daysInTransit + weekendDays;
-  bestShipDate = bestShipDate.subtractDays(calendarDays);
+  const calDaysInTransit = daysInTransit + weekendDays;
+  bestShipDate = bestShipDate.subtractDays(calDaysInTransit);
 
-  if (bestShipDate.getDay() === 0) {
-    bestShipDate -= 2;
-  } else if (bestShipDate.getDay() === 6) {
-    bestShipDate -= 1;
+  if ([0, 6].includes(bestShipDate.getDay())) {
+    bestShipDate = bestShipDate.subtractDays(1);
   }
 
+  console.log(`Best Ship date value after ifel: ${bestShipDate}`);
   console.log(`Order is due: ${dueDate.getMonth() + 1}/${dueDate.getDate()}`);
   console.log(
     `Best day to ship: ${bestShipDate.getMonth() + 1}/${bestShipDate.getDate()}`
   );
-  //   bestShipDate.getDay() === 0 || bestShipDate.getDay() === 6
-  //     ? console.log(`Looks like you are trying to ship on a weekend`)
-  //     : console.log(`Ship day looks good`);
 
   const message = `Best day to ship: ${
     bestShipDate.getMonth() + 1
