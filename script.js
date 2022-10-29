@@ -6,6 +6,25 @@ import { findBestShipDate } from "./modules/bestShipDate.js";
 const selectConsignee = document.querySelector("#select-consignee");
 const btnSubmit = document.querySelector("#submit");
 const elDueDate = document.querySelector("#due-date");
+const testy = document.querySelector("#testy");
+
+// FAKE CONSIGNEE DATA
+const dummyJSON = {
+  consignees: [
+    "KeHE - Chino",
+    "Wegmans",
+    "UNFI - Dayville",
+    "UNFI - Moreno Valley",
+  ],
+  avgTransitTimes: [2, 3, 1, 7],
+};
+
+for (const consignee of dummyJSON.consignees) {
+  const option = document.createElement("option");
+  option.innerText = consignee;
+  option.value = consignee;
+  selectConsignee.appendChild(option);
+}
 
 function minDateTomorrow() {
   const today = new Date();
@@ -26,25 +45,6 @@ elDueDate.addEventListener("change", function (e) {
     elDueDate.value = "";
   }
 });
-
-// FAKE CONSIGNEE DATA
-const dummyJSON = {
-  consignees: [
-    "KeHE - Chino",
-    "Wegmans",
-    "UNFI - Dayville",
-    "UNFI - Moreno Valley",
-  ],
-  avgTransitTimes: [2, 3, 1, 7],
-};
-const testy = document.querySelector("#testy");
-
-for (const consignee of dummyJSON.consignees) {
-  const option = document.createElement("option");
-  option.innerText = consignee;
-  option.value = consignee;
-  selectConsignee.appendChild(option);
-}
 
 btnSubmit.addEventListener("click", () => {
   const selection = selectConsignee.value;
