@@ -17,6 +17,7 @@ const dummyJSON = {
     "UNFI - Moreno Valley",
   ],
   avgTransitTimes: [2, 3, 1, 7],
+  shipFrom: ["SF", "DUR", "DUR", "SF"],
 };
 
 for (const consignee of dummyJSON.consignees) {
