@@ -1,12 +1,32 @@
 "use strict";
 
 import { findBestShipDate } from "./modules/bestShipDate.js";
+// const flatpikr = require("flatpickr");
+// import * as flatpickr from "/node_modules/flatpickr/dist/flatpickr.js";
 
 // DOM
 const selectConsignee = document.querySelector("#select-consignee");
 const btnSubmit = document.querySelector("#submit");
 const elDueDate = document.querySelector("#due-date");
 const testy = document.querySelector("#testy");
+
+const elFlatpikrDate = document.querySelector("#flatpickr");
+
+const flatpickrConfig = {
+  altInput: true,
+  altFormat: "F j, Y",
+  dateFormat: "Y-m-d",
+  disable: [
+    function (date) {
+      // return true to disable
+      return date.getDay() === 0 || date.getDay() === 6;
+    },
+  ],
+  locale: {
+    firstDayOfWeek: 1, // start week on Monday
+  },
+};
+// flatpickr(elFlatpikrDate, flatpickrConfig);
 
 // FAKE CONSIGNEE DATA
 const dummyJSON = {
