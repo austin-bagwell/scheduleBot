@@ -1,3 +1,9 @@
 body {
   line-height: 1.5;
 }
+
+.content-wrapper {
+  padding: 10px;
+  border: 1px solid black;
+  max-width: fit-content;
+}
