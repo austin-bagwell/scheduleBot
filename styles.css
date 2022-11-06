@@ -12,8 +12,22 @@ body {
   line-height: 1.5;
 }
 
+h1 {
+  text-align: center;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+}
+
 .content-wrapper {
   padding: 10px;
   border: 1px solid black;
   max-width: fit-content;
+  background-color: azure;
+}
+
+#due-date-picker {
+  cursor: pointer;
 }

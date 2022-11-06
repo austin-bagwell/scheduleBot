@@ -1,42 +1,23 @@
 "use strict";
 
 import { findBestShipDate } from "./modules/bestShipDate.js";
-// const flatpikr = require("flatpickr");
-// import * as flatpickr from "/node_modules/flatpickr/dist/flatpickr.js";
 
 // DOM
 const selectConsignee = document.querySelector("#select-consignee");
 const btnSubmit = document.querySelector("#submit");
-const elDueDate = document.querySelector("#due-date");
+const elDueDate = document.querySelector("#due-date-picker");
 const testy = document.querySelector("#testy");
-
-const elFlatpikrDate = document.querySelector("#flatpickr");
-
-const flatpickrConfig = {
-  altInput: true,
-  altFormat: "F j, Y",
-  dateFormat: "Y-m-d",
-  disable: [
-    function (date) {
-      // return true to disable
-      return date.getDay() === 0 || date.getDay() === 6;
-    },
-  ],
-  locale: {
-    firstDayOfWeek: 1, // start week on Monday
-  },
-};
-// flatpickr(elFlatpikrDate, flatpickrConfig);
 
 // FAKE CONSIGNEE DATA
 const dummyJSON = {
   consignees: [
+    "Kroger",
     "KeHE - Chino",
     "Wegmans",
     "UNFI - Dayville",
     "UNFI - Moreno Valley",
   ],
-  avgTransitTimes: [2, 3, 1, 7],
+  avgTransitTimes: [3, 2, 3, 1, 7],
   shipFrom: ["SF", "DUR", "DUR", "SF"],
 };
 
