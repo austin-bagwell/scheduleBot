@@ -16,7 +16,14 @@
             <p>Select a consignee and input a due date</p>
             <p id="testy">Best day to ship:</p>
           </div>
-          <form name="best-ship-date">
+          <form name="best-ship-date" autocomplete="off">
+            <div class="autocomplete">
+              <input
+                type="text"
+                name="autocomplete-consignee"
+                id="input-consignee"
+              />
+            </div>
             <select id="select-consignee">
               <option>Select a ship-to location</option>
             </select>

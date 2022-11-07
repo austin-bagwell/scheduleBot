@@ -62,3 +62,7 @@ btnSubmit.addEventListener("click", () => {
     );
   }
 });
+
+// AUTOCOMPLETE SEARCH
+
+function autocomplete(inp, arr) {}
