@@ -63,8 +63,7 @@ btnSubmit.addEventListener("click", () => {
   }
 });
 
-// FIXME doesn't disappear on selection, not tied to form submission or other calculation script. Also needs styling
-// AUTOCOMPLETE SEARCH
+// AUTOCOMPLETE SEARCHBAR
 // https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
 function autocomplete(inp, arr) {
