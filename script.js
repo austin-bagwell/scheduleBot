@@ -3,7 +3,7 @@
 import { findBestShipDate } from "./modules/bestShipDate.js";
 
 // DOM
-const selectConsignee = document.querySelector("#select-consignee");
+const inputConsignee = document.querySelector("#input-consignee");
 const btnSubmit = document.querySelector("#submit");
 const elDueDate = document.querySelector("#due-date-picker");
 const testy = document.querySelector("#testy");
@@ -21,12 +21,12 @@ const dummyJSON = {
   shipFrom: ["DUR", "SF", "DUR", "DUR", "SF"],
 };
 
-for (const consignee of dummyJSON.consignees) {
-  const option = document.createElement("option");
-  option.innerText = consignee;
-  option.value = consignee;
-  selectConsignee.appendChild(option);
-}
+// for (const consignee of dummyJSON.consignees) {
+//   const option = document.createElement("option");
+//   option.innerText = consignee;
+//   option.value = consignee;
+//   inputConsignee.appendChild(option);
+// }
 
 function minDateTomorrow() {
   const today = new Date();
@@ -49,10 +49,10 @@ elDueDate.addEventListener("change", function (e) {
 });
 
 btnSubmit.addEventListener("click", () => {
-  const selection = selectConsignee.value;
+  const selection = inputConsignee.value;
   const transitTime =
     dummyJSON.avgTransitTimes[dummyJSON.consignees.indexOf(selection)];
-  const dueDate = document.querySelector("#due-date").value;
+  const dueDate = document.querySelector("#due-date-picker").value;
 
   if (dummyJSON.consignees.includes(selection) && dueDate !== "") {
     testy.innerText = findBestShipDate(transitTime, dueDate);
@@ -68,10 +68,10 @@ btnSubmit.addEventListener("click", () => {
 // https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
 function autocomplete(inp, arr) {
-  let currentFocus;
+  var currentFocus;
 
   inp.addEventListener("input", function (e) {
-    let a,
+    var a,
       b,
       i,
       val = this.value;
@@ -85,7 +85,7 @@ function autocomplete(inp, arr) {
 
     a = document.createElement("DIV");
     a.setAttribute("id", this.id + "autocomplete-list");
-    a.setAttribute("class", this.class + "autocomplete-items");
+    a.setAttribute("class", "autocomplete-items");
 
     this.parentNode.appendChild(a);
 
@@ -106,7 +106,7 @@ function autocomplete(inp, arr) {
     }
   });
   inp.addEventListener("keydown", function (e) {
-    const x = document.getElementsById(this.id + "autocomplete-list");
+    var x = document.getElementById(this.id + "autocomplete-list");
     if (x) x = x.getElementsByTagName("div");
     if (e.keyCode == 40) {
       currentFocus++;
@@ -142,7 +142,7 @@ function autocomplete(inp, arr) {
   }
 
   function closeAllLists(elmnt) {
-    const x = document.getElementsByClassName("autocomplete-items");
+    var x = document.getElementsByClassName("autocomplete-items");
     for (let i = 0; i < x.length; i++) {
       if (elmnt != x[i] && elmnt != inp) {
         x[i].parentNode.removeChild(x[i]);

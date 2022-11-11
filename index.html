@@ -18,15 +18,17 @@
           </div>
           <form name="best-ship-date" autocomplete="off">
             <div class="autocomplete">
-              <input
+              <label for="autocomplete-consignee">Select a consignee: </label
+              ><input
                 type="text"
                 name="autocomplete-consignee"
                 id="input-consignee"
+                placeholder="Begin typing to pull list"
               />
             </div>
-            <select id="select-consignee">
+            <!-- <select id="select-consignee">
               <option>Select a ship-to location</option>
-            </select>
+            </select> -->
             <label for="date">Due by date: </label>
             <input type="date" name="date" id="due-date-picker" />
             <button type="button" for="best-ship-date" id="submit">
