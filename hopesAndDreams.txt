@@ -1,0 +1,9 @@
+Here's the hope for this specific use-case:
+
+    FE passes a String <dc_name> to the backend, maybe also sends <due_date>
+
+    Backend uses <dc_name> in a MySQL query to retrieve the <average_transit_time> of <dc_name>
+
+    Backend runs the bestShipDate(dueDate,transitTime) -> returns String that represents the best day to ship an order
+
+
