@@ -1,6 +1,6 @@
 "use strict";
 
-import { findBestShipDate } from "./modules/bestShipDate.js";
+import { findBestShipDate } from "../modules/bestShipDate.js";
 
 // DOM
 const inputConsignee = document.querySelector("#input-consignee");
