@@ -7,3 +7,7 @@ Here's the hope for this specific use-case:
     Backend runs the bestShipDate(dueDate,transitTime) -> returns String that represents the best day to ship an order
 
 
+need to make a POST request to the backend - that will ask for 
+
+how to separate out the layers - API, Biz logic, DAOs
+

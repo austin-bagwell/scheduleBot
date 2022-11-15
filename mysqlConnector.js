@@ -1,10 +1,10 @@
 "use strict";
 
 // MySql currently living here rent free in my head
-
 const mysql = require("mysql2");
 
 // MySQL
+// TODO
 const con = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -13,6 +13,9 @@ const con = mysql.createConnection({
 });
 
 // CONNECT TO DATABASE, LOG SIMPLE QUERY
+// TODO this becomes an exportable func, return result
+// gotta put in a promise AKA gotta be async
+// must return as promise new Promise (resolve, reject, err) {}
 con.connect(function (err) {
   if (err) {
     return console.error("error: " + err.message);

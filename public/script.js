@@ -1,7 +1,6 @@
 "use strict";
 
 import { findBestShipDate } from "/bestShipDate.js";
-// const findBestShipDate = require("bestShipDate");
 
 // DOM
 const inputConsignee = document.querySelector("#input-consignee");
@@ -10,17 +9,28 @@ const elDueDate = document.querySelector("#due-date-picker");
 const testy = document.querySelector("#testy");
 
 // FAKE CONSIGNEE DATA
-const dummyJSON = {
-  consignees: [
-    "Kroger",
-    "KeHE - Chino",
-    "Wegmans",
-    "UNFI - Dayville",
-    "UNFI - Moreno Valley",
-  ],
-  avgTransitTimes: [3, 2, 3, 1, 7],
-  shipFrom: ["DUR", "SF", "DUR", "DUR", "SF"],
-};
+// const dummyJSON = {
+//   consignees: [
+//     "Kroger",
+//     "KeHE - Chino",
+//     "Wegmans",
+//     "UNFI - Dayville",
+//     "UNFI - Moreno Valley",
+//   ],
+//   avgTransitTimes: [3, 2, 3, 1, 7],
+//   shipFrom: ["DUR", "SF", "DUR", "DUR", "SF"],
+// };
+
+let dummyJSON;
+makeRequest({ method: "GET", url: "/consignee/get-consignees" }).then((res) => {
+  dummyJSON = JSON.parse(res);
+  autocomplete(
+    document.getElementById("input-consignee"),
+    dummyJSON.consignees
+  );
+  // console.log(dummyJSON);
+  // console.log(`Response from makeRequest: `, res);
+});
 
 // for (const consignee of dummyJSON.consignees) {
 //   const option = document.createElement("option");
@@ -66,7 +76,6 @@ btnSubmit.addEventListener("click", () => {
 
 // AUTOCOMPLETE SEARCHBAR
 // https://www.w3schools.com/howto/howto_js_autocomplete.asp
-
 function autocomplete(inp, arr) {
   var currentFocus;
 
@@ -155,4 +164,62 @@ function autocomplete(inp, arr) {
   });
 }
 
-autocomplete(document.getElementById("input-consignee"), dummyJSON.consignees);
+/**
+
+ * this is the base request function creating a promise
+
+ * to allow for ajax requests
+
+ * @param {{method: "GET" | "POST" | "PUT" | "DELETE", url: string, headers: {}, params: {}}} opts
+
+ * @returns
+
+ */
+
+function makeRequest(opts) {
+  return new Promise(function (resolve, reject) {
+    var xhr = new XMLHttpRequest();
+
+    xhr.open(opts.method, opts.url);
+
+    xhr.onload = function () {
+      if (this.status >= 200 && this.status < 300) {
+        resolve(xhr.response);
+      } else {
+        reject({
+          status: this.status,
+
+          statusText: xhr.statusText,
+        });
+      }
+    };
+
+    xhr.onerror = function () {
+      reject({
+        status: this.status,
+
+        statusText: xhr.statusText,
+      });
+    };
+
+    if (opts.headers) {
+      Object.keys(opts.headers).forEach(function (key) {
+        xhr.setRequestHeader(key, opts.headers[key]);
+      });
+    }
+
+    var params = opts.params;
+
+    if (params && typeof params === "object") {
+      params = Object.keys(params)
+        .map(function (key) {
+          return (
+            encodeURIComponent(key) + "=" + encodeURIComponent(params[key])
+          );
+        })
+        .join("&");
+    }
+
+    xhr.send(params);
+  });
+}
