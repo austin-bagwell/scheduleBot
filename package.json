@@ -1,13 +1,13 @@
 {
   "dependencies": {
     "express": "^4.18.2",
-    "flatpickr": "^4.6.13"
+    "flatpickr": "^4.6.13",
+    "mysql2": "^2.3.3"
   },
   "name": "schedulebot",
   "description": "A logistics microservice that helps calculate the best day to ship an order for a given customer by checking historic shipment data.",
   "version": "1.0.0",
   "main": "app.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"

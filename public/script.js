@@ -22,7 +22,7 @@ const testy = document.querySelector("#testy");
 // };
 
 let dummyJSON;
-makeRequest({ method: "GET", url: "/consignee/get-consignees" }).then((res) => {
+makeRequest({ method: "GET", url: "/get-consignees" }).then((res) => {
   dummyJSON = JSON.parse(res);
   autocomplete(
     document.getElementById("input-consignee"),
