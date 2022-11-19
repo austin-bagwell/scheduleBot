@@ -9,8 +9,14 @@ const queryDatabase = require("../queryDatabase");
 /**
  * @param {Router} router
  */
+
+const sqlQuery = `SELECT DISTINCT dc_name
+ FROM ltl_test
+ WHERE ship_location = 'SF' LIMIT 5;`;
+
 router.get("/sql", (req, res) => {
-  const queryResults = queryDatabase().makeConnection();
+  const queryResults = queryDatabase(sqlQuery);
+  console.log(queryResults);
   res.send(queryResults);
 });
 

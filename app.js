@@ -9,7 +9,6 @@ const express = require("express");
 const app = express();
 
 const port = 3000;
-
 // router.use((req, res, next) => {
 //   // middleware specific to this router
 //   // if (req) {do auth or whatever}
@@ -21,7 +20,7 @@ const port = 3000;
 // consigneeRoutes(router);
 app.use("/", proNumbers);
 app.use("/", consigneeRoutes);
-// app.use("/", sqlConnector);
+app.use("/", sqlConnector);
 app.use(express.static("public"));
 
 app.listen(port, () => {

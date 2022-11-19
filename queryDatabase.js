@@ -16,11 +16,12 @@ const mysql = require("mysql2");
 // gotta put in a promise AKA gotta be async
 // must return as promise new Promise (resolve, reject, err) {}
 
-const sqlQuery = `SELECT DISTINCT dc_name
-FROM ltl_test
-WHERE ship_location = 'SF' LIMIT 5;`;
+// moving to sqlConnector?
+// const sqlQuery = `SELECT DISTINCT dc_name
+// FROM ltl_test
+// WHERE ship_location = 'SF' LIMIT 5;`;
 
-function queryDatabse(sql) {
+function queryDatabase(sql) {
   // put Promise here somehow
   // put all the connection stuff in here
   const con = mysql.createConnection({
@@ -77,4 +78,4 @@ con.connect(function (err) {
   });
 });
 */
-module.exports = queryDatabse(sqlQuery);
+module.exports = queryDatabase;
