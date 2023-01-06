@@ -19,6 +19,12 @@ const port = 3000;
 
 // runs fn to set up routes for consignee specifically
 // consigneeRoutes(router);
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 app.use("/", proNumbers);
 app.use("/", consigneeRoutes);
 // app.use("/", sqlConnector);
