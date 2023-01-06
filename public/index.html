@@ -7,18 +7,20 @@
     <link href="./styles/styles.css" rel="stylesheet" />
     <title>Schedule Bot</title>
   </head>
-  <body>
+  <body class="bckgrnd-clr-darkblue">
+    <header class="header">
+      <h1>shipperBot</h1>
+      <h2>simplify the scheduling process</h2>
+    </header>
     <main>
-      <h1>Shipper Bot</h1>
-      <section class="card">
-        <div class="content-wrapper">
-          <div class="text-test">
-            <p>Select a consignee and input a due date</p>
-            <p id="testy">Best day to ship:</p>
-          </div>
+      <div class="content-wrapper flex-wrapper">
+        <div class="text-test">
+          <h3 class="how-to-text">Select a consignee and input a due date</h3>
+        </div>
+        <div class="form-wrapper">
           <form name="best-ship-date" autocomplete="off">
             <div class="autocomplete">
-              <label for="autocomplete-consignee">Select a consignee: </label
+              <label for="autocomplete-consignee">Consignee: </label
               ><input
                 type="text"
                 name="autocomplete-consignee"
@@ -26,14 +28,21 @@
                 placeholder="Begin typing to pull list"
               />
             </div>
-            <label for="date">Due by date: </label>
-            <input type="date" name="date" id="due-date-picker" />
-            <button type="button" for="best-ship-date" id="submit">
-              Submit
-            </button>
+            <div class="date-box-wrapper">
+              <label for="date">Due by date: </label>
+              <input type="date" name="date" id="due-date-picker" />
+            </div>
           </form>
+          <div class="date-box-wrapper best-ship-wrapper hidden">
+            <p id="testy">Best day to ship:</p>
+          </div>
         </div>
-      </section>
+        <div class="flex-wrapper submit-btn-wrapper">
+          <button for="best-ship-date bckgrnd-clr-darkblue" id="submit-btn">
+            Submit
+          </button>
+        </div>
+      </div>
     </main>
 
     <script src="/script.js" type="module"></script>

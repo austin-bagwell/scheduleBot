@@ -4,6 +4,7 @@
 const consigneeRoutes = require("./routes/consigneeRoutes");
 const proNumbers = require("./routes/proNumbers");
 const { sqlConnector } = require("./routes/sqlConnector");
+const { queryDatabase } = require("./queryDatabase");
 // import express from "express";
 const express = require("express");
 const app = express();
@@ -20,7 +21,7 @@ const port = 3000;
 // consigneeRoutes(router);
 app.use("/", proNumbers);
 app.use("/", consigneeRoutes);
-app.use("/", sqlConnector);
+// app.use("/", sqlConnector);
 app.use(express.static("public"));
 
 app.listen(port, () => {

@@ -1,3 +1,17 @@
+/* GENERIC CLASS aka slap these on whatever */
+
+.flex-wrapper {
+  display: flex;
+}
+
+.hidden {
+  display: none;
+}
+
+.bckgrnd-clr-darkblue {
+  background-color: rgb(50, 50, 100);
+}
+
 html {
   box-sizing: border-box;
 }
@@ -12,20 +26,28 @@ body {
   line-height: 1.5;
 }
 
-h1 {
+.header {
   text-align: center;
+  color: whitesmoke;
 }
 
-.card {
+main {
   display: flex;
   justify-content: center;
 }
 
 .content-wrapper {
-  padding: 10px;
-  border: 1px solid black;
-  max-width: fit-content;
-  background-color: azure;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 2rem;
+  max-width: 75%;
+  min-height: 50vh;
+  border-radius: 5px;
+  background-color: rgb(129, 203, 203);
+}
+
+.how-to-text {
+  text-align: center;
 }
 
 #due-date-picker {
@@ -63,4 +85,17 @@ h1 {
 .autocomplete-active {
   background-color: dodgerblue;
   color: #ffffff;
+}
+
+.submit-btn-wrapper {
+  justify-content: center;
+}
+
+#submit-btn {
+  width: 250px;
+  height: 100px;
+  border: 0;
+  border-radius: 5px;
+  font-size: xx-large;
+  background-color: blueviolet;
 }

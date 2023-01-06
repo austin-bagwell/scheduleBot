@@ -4,8 +4,9 @@ import { findBestShipDate } from "/bestShipDate.js";
 
 // DOM
 const inputConsignee = document.querySelector("#input-consignee");
-const btnSubmit = document.querySelector("#submit");
+const btnSubmit = document.querySelector("#submit-btn");
 const elDueDate = document.querySelector("#due-date-picker");
+const bestShipWrapper = document.querySelector(".best-ship-wrapper");
 const testy = document.querySelector("#testy");
 
 // FAKE CONSIGNEE DATA
@@ -59,6 +60,8 @@ elDueDate.addEventListener("change", function (e) {
   }
 });
 
+// TODO
+// extract click callback () and make it a named function to make this more readable
 btnSubmit.addEventListener("click", () => {
   const selection = inputConsignee.value;
   const transitTime =
@@ -66,7 +69,9 @@ btnSubmit.addEventListener("click", () => {
   const dueDate = document.querySelector("#due-date-picker").value;
 
   if (dummyJSON.consignees.includes(selection) && dueDate !== "") {
+    console.log(`best ship date got called on btn click`);
     testy.innerText = findBestShipDate(transitTime, dueDate);
+    bestShipWrapper.classList.toggle("hidden");
   } else {
     alert(
       "Select a consignee from the dropdown menu and select a due date on a weekday."
