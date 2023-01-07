@@ -1,3 +1,6 @@
+Basically taking all the backend structure from:
+https://github.com/bezkoder/nodejs-express-mysql/blob/master/app/controllers/tutorial.controller.js
+
 Big refactor --
 
 Step 0 here is to use the most basic data possible -- consignees and their average time in transit. That's it. No analysis, no individual shipments. Maybe a unique ID for each consignee to keep things straight in the DB. No fluff.

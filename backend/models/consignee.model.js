@@ -1,8 +1,7 @@
 "use strict";
 
 class Consignee {
-  constructor(id, name, avgTiT) {
-    this.id = id;
+  constructor(name, avgTiT) {
     this.name = name;
     this.avgTiT = avgTiT;
   }

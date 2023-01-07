@@ -16,6 +16,7 @@ app.use(
 );
 app.use("/", consigneeRoutes);
 app.use(express.static("public"));
+require("./backend/routes/consignee.route.js")(app);
 
 app.listen(PORT, () => {
   console.log(`App is listening on port ${PORT}`);
