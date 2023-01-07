@@ -1,13 +1,4 @@
-Here's the hope for this specific use-case:
+Big refactor --
 
-    FE passes a String <dc_name> to the backend, maybe also sends <due_date>
-
-    Backend uses <dc_name> in a MySQL query to retrieve the <average_transit_time> of <dc_name>
-
-    Backend runs the bestShipDate(dueDate,transitTime) -> returns String that represents the best day to ship an order
-
-
-need to make a POST request to the backend - that will ask for 
-
-how to separate out the layers - API, Biz logic, DAOs
+Step 0 here is to use the most basic data possible -- consignees and their average time in transit. That's it. No analysis, no individual shipments. Maybe a unique ID for each consignee to keep things straight in the DB. No fluff.
 
