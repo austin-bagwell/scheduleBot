@@ -1,8 +1,15 @@
 "use strict";
 
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
+
+var corsOptions = {
+  origin: "http://localhost:3306",
+};
+
+app.use(cors(corsOptions));
 
 const consigneeRoutes = require("./backend/routes/consigneeRoutes");
 

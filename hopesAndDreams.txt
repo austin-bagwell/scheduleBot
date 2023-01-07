@@ -5,3 +5,8 @@ Big refactor --
 
 Step 0 here is to use the most basic data possible -- consignees and their average time in transit. That's it. No analysis, no individual shipments. Maybe a unique ID for each consignee to keep things straight in the DB. No fluff.
 
+TODO
+finish setting up consignee.model.js --- I need to write all the DB methods still
+
+TODO
+sort out actually connecting to MySQL 
