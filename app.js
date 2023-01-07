@@ -1,15 +1,12 @@
 "use strict";
 
-// import { consigneeRoutes } from "./routes/consigneeRoutes.js";
-const consigneeRoutes = require("./routes/consigneeRoutes");
-const proNumbers = require("./routes/proNumbers");
-const { sqlConnector } = require("./routes/sqlConnector");
-const { queryDatabase } = require("./queryDatabase");
-// import express from "express";
+const consigneeRoutes = require("./backend/routes/consigneeRoutes");
+const proNumbers = require("./backend/routes/proNumbers");
+
 const express = require("express");
 const app = express();
 
-const port = 3000;
+const port = process.env.port || 3000;
 // router.use((req, res, next) => {
 //   // middleware specific to this router
 //   // if (req) {do auth or whatever}
