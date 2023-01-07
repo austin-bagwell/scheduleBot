@@ -5,7 +5,7 @@
     "mysql2": "^2.3.3"
   },
   "name": "schedulebot",
-  "description": "A logistics microservice that helps calculate the best day to ship an order for a given customer by checking historic shipment data.",
+  "description": "A logistics service that provides the best ship date for an order based using average transit times stored in a MySQL database",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {

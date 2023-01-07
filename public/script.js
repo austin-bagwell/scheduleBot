@@ -9,19 +9,7 @@ const elDueDate = document.querySelector("#due-date-picker");
 const bestShipWrapper = document.querySelector(".best-ship-wrapper");
 const testy = document.querySelector("#testy");
 
-// FAKE CONSIGNEE DATA
-// const dummyJSON = {
-//   consignees: [
-//     "Kroger",
-//     "KeHE - Chino",
-//     "Wegmans",
-//     "UNFI - Dayville",
-//     "UNFI - Moreno Valley",
-//   ],
-//   avgTransitTimes: [3, 2, 3, 1, 7],
-//   shipFrom: ["DUR", "SF", "DUR", "DUR", "SF"],
-// };
-
+// FIXME probably shouldn't call this out the gate - makeRequest() should get called when needed, not as soon as script.js loads in the browser
 let dummyJSON;
 makeRequest({ method: "GET", url: "/get-consignees" }).then((res) => {
   dummyJSON = JSON.parse(res);
@@ -29,16 +17,7 @@ makeRequest({ method: "GET", url: "/get-consignees" }).then((res) => {
     document.getElementById("input-consignee"),
     dummyJSON.consignees
   );
-  // console.log(dummyJSON);
-  // console.log(`Response from makeRequest: `, res);
 });
-
-// for (const consignee of dummyJSON.consignees) {
-//   const option = document.createElement("option");
-//   option.innerText = consignee;
-//   option.value = consignee;
-//   inputConsignee.appendChild(option);
-// }
 
 function minDateTomorrow() {
   const today = new Date();
